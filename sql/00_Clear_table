@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW `telco-projectt.Telco.Telco_clean` AS
+SELECT
+    CustomerID,
+    Gender,
+    Age,
+    SeniorCitizen,
+    Married,
+    Dependents,
+    TenureinMonths,
+    State,
+    City,
+    PhoneService,
+    InternetService,
+    InternetType,
+    Contract,
+    PaymentMethod,
+    MonthlyCharge,
+    TotalCharges,
+    TotalRevenue,
+    SatisfactionScore,
+    CustomerStatus,
+    ChurnLabel,
+    ChurnCategory,
+    ChurnReason
+FROM `telco-projectt.Telco.Telco_Table`
