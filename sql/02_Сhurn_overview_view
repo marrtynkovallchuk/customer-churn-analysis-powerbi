@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW `telco-projectt.Telco.churn_overview_view` AS
+SELECT
+    COUNT(*) AS total_customers,
+    SUM(CASE WHEN ChurnLabel THEN 1 ELSE 0 END) AS churned_customers,
+    ROUND(AVG(CAST(ChurnLabel AS INT64))*100,2) AS churn_rate_percent,
+    SUM(TotalRevenue) AS total_revenue,
+    SUM(CASE WHEN ChurnLabel THEN TotalRevenue ELSE 0 END) AS lost_revenue
+FROM `telco-projectt.Telco.telco_features`;
