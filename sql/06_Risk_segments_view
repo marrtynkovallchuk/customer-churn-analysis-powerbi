@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW `telco-projectt.Telco.risk_segments_view` AS
+SELECT
+    CustomerID,
+    TenureinMonths,
+    Contract,
+    MonthlyCharge,
+    TotalRevenue,
+    ChurnLabel,
+    churn_flag,
+    high_value_flag,
+    tenure_group,
+    charge_group
+FROM `telco-projectt.Telco.telco_features`
+WHERE churn_flag = 1 OR high_value_flag = 1
+ORDER BY high_value_flag DESC, churn_flag DESC, TenureinMonths ASC;
