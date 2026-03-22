@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW `telco-projectt.Telco.churn_by_tenure_view` AS
+SELECT
+    tenure_group,
+    COUNT(*) AS total_customers,
+    SUM(CASE WHEN ChurnLabel THEN 1 ELSE 0 END) AS churned_customers,
+    ROUND(AVG(CAST(ChurnLabel AS INT64))*100,2) AS churn_rate_percent
+FROM `telco-projectt.Telco.telco_features`
+GROUP BY tenure_group
+ORDER BY
+  CASE tenure_group
+    WHEN '0-6' THEN 1
+    WHEN '6-12' THEN 2
+    WHEN '12-24' THEN 3
+    WHEN '24+' THEN 4
+    ELSE 5
+  END;
