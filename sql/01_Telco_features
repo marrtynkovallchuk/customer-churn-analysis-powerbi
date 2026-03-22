@@ -1,0 +1,53 @@
+CREATE OR REPLACE VIEW `telco-projectt.Telco.telco_features` AS
+SELECT
+   CustomerID,
+    Gender,
+    Age,
+    SeniorCitizen,
+    Married,
+    Dependents,
+    TenureinMonths,
+    State,
+    City,
+    PhoneService,
+    InternetService,
+    InternetType,
+    Contract,
+    PaymentMethod,
+    MonthlyCharge,
+    TotalCharges,
+    TotalRevenue,
+    SatisfactionScore,
+    CustomerStatus,
+    ChurnLabel,
+    ChurnCategory,
+    ChurnReason,
+
+
+    CASE WHEN ChurnLabel THEN 1 ELSE 0 END AS churn_flag,
+
+
+    
+    CASE
+        WHEN TenureinMonths < 6 THEN '0-6'
+        WHEN TenureinMonths < 12 THEN '6-12'
+        WHEN TenureinMonths < 24 THEN '12-24'
+        ELSE '24+'
+    END AS tenure_group,
+
+
+    CASE
+        WHEN MonthlyCharge < 30 THEN 'Low'
+        WHEN MonthlyCharge < 70 THEN 'Medium'
+        ELSE 'High'
+    END AS charge_group,
+
+
+    
+    CASE
+        WHEN TotalRevenue > 2000 THEN 1
+        ELSE 0
+    END AS high_value_flag
+
+
+FROM `telco-projectt.Telco.Telco_clean`
