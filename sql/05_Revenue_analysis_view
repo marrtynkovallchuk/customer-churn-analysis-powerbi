@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW `telco-projectt.Telco.revenue_analysis_view` AS
+SELECT
+    CASE
+        WHEN MonthlyCharge < 30 THEN 'Low'
+        WHEN MonthlyCharge < 70 THEN 'Medium'
+        ELSE 'High'
+    END AS monthly_charge_group,
+    COUNT(*) AS total_customers,
+    SUM(TotalRevenue) AS total_revenue,
+    SUM(CASE WHEN ChurnLabel THEN TotalRevenue ELSE 0 END) AS lost_revenue,
+    ROUND(SUM(CASE WHEN ChurnLabel THEN TotalRevenue ELSE 0 END)/SUM(TotalRevenue)*100,2) AS lost_revenue_percent
+FROM `telco-projectt.Telco.telco_features`
+GROUP BY monthly_charge_group
+ORDER BY lost_revenue_percent DESC;
